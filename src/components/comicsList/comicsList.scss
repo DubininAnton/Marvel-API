@@ -1,0 +1,26 @@
+.comicsList {
+    display: grid;
+    grid-template-rows: repeat(2, 415px);
+    grid-template-columns: repeat(4, 225px);
+    row-gap: 55px;
+    column-gap: 67px;
+    grid-auto-rows: 415px;
+    margin-bottom: 45px;
+    &__item {
+        font-size: 14px;
+        font-weight: bold;
+        span {
+            color: rgba(0,0,0, .6);
+            margin-top: 7px;
+        }
+        img {
+            margin: 0;
+            padding: 0;
+            box-shadow: 4px 4px 20px -3px rgba(34, 60, 80, 0.2);
+            margin-bottom: 10px;
+        }
+    }
+}
+.container {
+    margin-bottom: 50px;
+}

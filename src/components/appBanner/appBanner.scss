@@ -1,0 +1,23 @@
+.banner {
+    display: flex;
+    height: 100px;
+    background-color: #232222;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 45px;
+    &__img {
+        margin-left: 45px;
+        margin-right: 83px;
+    }
+    p {
+        margin-right: 427px;
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        width: 235px;
+    }
+    &__logo {
+        margin-left: 0;
+    }
+}
+
