@@ -14,7 +14,7 @@ import ErrorBoundaty from '../errorBoundary/errorBoundary';
 class App extends Component {
   state ={
     id: null
-  }
+  }   
 
   onSetId = (id) => {
     this.setState(({id:id}))
