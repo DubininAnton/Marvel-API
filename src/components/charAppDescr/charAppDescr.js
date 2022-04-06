@@ -1,90 +1,80 @@
-import { Component } from 'react';
+import { useState, useEffect, useMemo} from 'react';
 import mainbg from '../../resourses/img/mainbg.png';
 import Spinner from '../spinner/spinner';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 import Skeleton from '../skeleton/Skeleton';
 import ErrorText from '../errorText/ErrorText';
 import './charAppDescr.scss';
 
-class CharAppDescr extends Component {
-    state = {
-        char: null,
-        loading: false,
-        error: false
-    }
-    marvelService = new MarvelService();
+const CharAppDescr = (props) => {
 
-    componentDidUpdate(prevProps) {
-        const onCharId = this.props;
-        if(onCharId.onCharId !== prevProps.onCharId) {
-            this.onUpdateChar()
-            
-        }
+    const [char, setChar] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [id, setId] = useState(null);
+    const [spinner, setSpinner] = useState(false);
+
+    const {getCharacter} = useMarvelService();
+
+
+    useEffect(()=> {
+        onUpdateChar()        
+    }, [props.onCharId])
         
+
+    const onUpdateChar =() => {
+        
+        const onCharId = props.onCharId;
+        onLoadingCharInfo();
+
+        getCharacter(onCharId)
+            .then(onLoadCharInfo)
+            .catch(onError)
     }
 
-    onUpdateChar =() => {
-        const onCharId = this.props;
-
-        this.onLoadingCharInfo();
-
-        this.marvelService
-        .getCharacter(onCharId.onCharId)
-        .then(res => this.onLoadCharInfo(res))
-        .catch(this.onError)
+    const onError = () => {
+        setLoading({loading: false})
+        setError({error:true})
     }
 
-    onError = () => {
-        this.setState = ({
-            loading: false,
-            error: true
-        })
-    }
-
-    onLoadingCharInfo =() => {
-        this.setState({loading: true})
+    const onLoadingCharInfo =() => {
+        setLoading(true)
     }
 
 
-    onLoadCharInfo = (res) => {
-
-        this.setState(() => ({
-            char: res,
-            loading: false,                 
-        }))
+    const onLoadCharInfo = (res) => {
+        setChar(res)
+        setLoading(false)
     }
 
    
     
-    onSetState = () => {
-        const onCharId = this.props;
-        this.setState(({id:onCharId.onCharId}))
+    const onSetState = () => {
+        const onCharId = props.onCharId;
+        setId(({id:onCharId}))
     }
 
     
-    onSpinner = () => {
-        this.setState({spinnr: true})
+    const onSpinner = () => {
+        setSpinner({spinner: true})
     }
 
-   render () {
-
-       const {char, loading, error} = this.state;
 
        const skeleton = char || loading ? null : <Skeleton/>;
        const content = !(loading || !char) ? <View char={char}/> : null;
-       const spinner = loading ? <Spinner/> : null;
+       const spinnerView = loading ? <Spinner/> : null;
        const errorText = error ? <ErrorText/> : null;
     return (
         <div className="charApp__descr">
             {skeleton}
             {content}
-            {spinner}
+            {spinnerView}
             {errorText}
             <img src={mainbg} alt="mainbg" className="mainbg"/>
         </div>
         )
    }
-}
+
 
 
 const View = ({char}) => {

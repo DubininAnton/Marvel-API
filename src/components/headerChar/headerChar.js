@@ -1,68 +1,62 @@
-import {Component} from 'react';
+import {useState, useEffect} from 'react';
 import Spinner from '../spinner/spinner';
+import useMarvelService from '../../services/MarvelService';
 import Hummer from '../../resourses/img/HummerHeaderChar.png';
 import ErrorText from '../errorText/ErrorText';
-import MarvelService from '../../services/MarvelService';
 import './headerChar.scss';
 
-class HeaderChar extends Component {
+const HeaderChar = () => {
 
-    state = {
-        char: null,
-        loading: true,
-        error: false
-    }
+    const [char, setChar] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    marvelService = new MarvelService();
+    const {getCharacter, getAllCharactersPerson}= useMarvelService();
 
-    arrayId = async () => {
+    const arrayId = async () => {
         let id=[];
-        await this.marvelService
-                  .getAllCharactersPerson()
+        await getAllCharactersPerson
                   .then(res => res.data.results
                   .forEach(item => id.push(item.id)));
-        this.randomId(id);
+        randomId(id);
     }
 
-    randomId = (id) => {
+    const randomId = (id) => {
         let randomId = id[Math.floor(Math.random()*id.length)]; 
-        this.updateChar(randomId);
+        updateChar(randomId);
     }
    
-    onError = () => {
-        this.setState = ({
-            loading: false,
-            error: true
-        })
+    const onError = () => {
+        setLoading({loading: false})
+        setError({error:true})
     }
     
-    onCharLoading =() => {
-        this.setState(({loading: true}))
+    const onCharLoading =() => {
+        setLoading(true)
     }
 
-    updateChar = (randomId) => {
-        this.marvelService
-        .getCharacter(randomId)
-        .then(res => this.setState( {
-            char: res,
-            loading: false
-        }))
-        .catch (this.onError);
+    const updateChar = (randomId) => {
+        getCharacter(randomId)
+            .then(res => (
+                setChar (res)
+            ))
+            .catch (onError);
+        
+        setLoading (false)
+        
                
     }
 
+        useEffect(()=> {
+            arrayId()
+        },[])
 
-    componentDidMount() {
-        this.arrayId();
+
+    const clickButton = () => {
+        arrayId();
+        onCharLoading()
     }
 
-    clickButton = () => {
-        this.arrayId();
-        this.onCharLoading()
-    }
-
-    render () {
-        const {char, loading, error} = this.state;
         const spinner = loading ? <Spinner/> : null;
         const errorText = error ? <ErrorText/> : null;
         const content = !(loading || error) ? <View char={char}/> : null;
@@ -79,7 +73,7 @@ class HeaderChar extends Component {
                             Or choose another one
                         </div>
                     </div>
-                    <button onClick = {this.clickButton} href ="#" className="button button__main">
+                    <button onClick = {clickButton} href ="#" className="button button__main">
                         <div className="inner">HOMEPAGE</div>
                     </button>
                     <img src={Hummer} alt="HummerPictures" />
@@ -87,7 +81,6 @@ class HeaderChar extends Component {
             </div>
         )
 
-    }
 }
 
     const View =({char}) => {

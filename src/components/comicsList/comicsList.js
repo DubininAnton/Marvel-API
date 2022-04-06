@@ -1,8 +1,32 @@
+import {useState, useEffect} from 'react';
 import xmen from '../../resourses/img/x-men.png';
 import uv from '../../resourses/img/UW.png';
+import MarvelService from "../../services/MarvelService";
 import './comicsList.scss';
 
+
 const Comicslist = () => {
+
+    const [comicsList, setComicsList] =useState();
+    const [offset, setOffset] = useState(null);
+    const {getComicsItem} = MarvelService;
+
+    const comicsItem = () => {
+        getComicsItem()
+            .then(res => onComicsList)
+    }
+
+    const onComicsList = ({offset, res})=> {
+        setOffset({offset: offset+8})
+        setComicsList({offset:res})
+    }
+
+    useEffect(()=> {
+        comicsItem()
+        console.log(offset)
+        console.log(comicsList)
+    }, [])
+
     return (
         <div className="container">
             <div className="comicsList">
