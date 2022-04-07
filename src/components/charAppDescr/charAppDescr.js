@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo} from 'react';
+import { useState, useEffect} from 'react';
 import mainbg from '../../resourses/img/mainbg.png';
 import Spinner from '../spinner/spinner';
 import useMarvelService from '../../services/MarvelService';
@@ -11,14 +11,16 @@ const CharAppDescr = (props) => {
     const [char, setChar] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [id, setId] = useState(null);
-    const [spinner, setSpinner] = useState(false);
+    // const [id, setId] = useState(null);
+    // const [spinner, setSpinner] = useState(false);
 
     const {getCharacter} = useMarvelService();
 
 
     useEffect(()=> {
-        onUpdateChar()        
+        if(props.onCharId !==null) {
+            onUpdateChar()
+        }
     }, [props.onCharId])
         
 
@@ -49,15 +51,15 @@ const CharAppDescr = (props) => {
 
    
     
-    const onSetState = () => {
-        const onCharId = props.onCharId;
-        setId(({id:onCharId}))
-    }
+    // const onSetState = () => {
+    //     const onCharId = props.onCharId;
+    //     setId(({id:onCharId}))
+    // }
 
     
-    const onSpinner = () => {
-        setSpinner({spinner: true})
-    }
+    // const onSpinner = () => {
+    //     setSpinner({spinner: true})
+    // }
 
 
        const skeleton = char || loading ? null : <Skeleton/>;
@@ -78,7 +80,7 @@ const CharAppDescr = (props) => {
 
 
 const View = ({char}) => {
-    const {name, thumbnail, description, stories, wiki, homepage} = char;
+    const {name, thumbnail, description, stories, wiki, homepage, id} = char;
     
         return (
             <>
@@ -105,7 +107,7 @@ const View = ({char}) => {
                         {
                            stories.map((res) => {
                                 return (
-                                    <div className="charApp__descr_link">
+                                    <div className="charApp__descr_link" key={res.id}>
                                         {res.name}
                                     </div>
                                 )

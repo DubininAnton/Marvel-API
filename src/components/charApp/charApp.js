@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import useMarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/spinner';
 import './charApp.scss';
 
 
@@ -7,6 +8,7 @@ import './charApp.scss';
 const CharApp =(props)=> {
 
     const [charList, setCharList]  = useState([]);
+    const [loading, setLoading] = useState(false);
     const [newItemLoading, setnewItemLoading]  = useState(false);
     const [offset, setOffset] = useState(0);
     const [charEnded, setCharEnded] = useState(false);
@@ -16,6 +18,7 @@ const CharApp =(props)=> {
    const {getAllCharacters} = useMarvelService();
 
     const charListItem = () => {
+        setLoading(true)
             getAllCharacters()
              .then(res => onCharrListLouded(res.data.results))
         }
@@ -29,16 +32,7 @@ const CharApp =(props)=> {
         setnewItemLoading(false)
         setOffset(offset + 9)
         setCharEnded(ended)
-
-        // this.setState(({offset, charList}) => {
-        //     return (
-        //        {charList: [...charList, ...results],
-        //         newItemLoading: false,
-        //         offset: offset + 9,
-        //         charEnded: ended,
-        //         }
-        //     )
-        // })
+        setLoading(false)
     }
 
    const changeStateId = (id) => {
@@ -47,7 +41,6 @@ const CharApp =(props)=> {
 
     const renderItem =(arr) => {
         const idState = id;
-        console.log(idState)
         const card = arr.map((item)=>{
             return (
                 <div tabIndex={0} 
@@ -85,24 +78,22 @@ const CharApp =(props)=> {
         })
     }
 
-   
-        // const charList = this.state.charList;
-        // const {newItemLoading, offset, charEnded} = this.state;
-        const item = renderItem(charList);
-
-        return (
-            <div>
-                <div className="charApp__list">
-                    {item}
-                </div>
-                <button className="button button__long button__main"
-                    disabled ={newItemLoading}
-                    style={{'display': charEnded ? 'none' : 'block'}}
-                    onClick ={() => onRequest(offset)}>
-                    <div className="inner">LOAD MORE</div>
-                </button>
+    const item = renderItem(charList);
+    const spinner = loading ? <Spinner/> : null;
+    return (
+        <div>
+            <div className="charApp__list">
+                {item}
             </div>
-        )
+                {spinner}
+            <button className="button button__long button__main"
+                disabled ={newItemLoading}
+                style={{'display': charEnded ? 'none' : 'block'}}
+                onClick ={() => onRequest(offset)}>
+                <div className="inner">LOAD MORE</div>
+            </button>
+        </div>
+    )
     
    
 }

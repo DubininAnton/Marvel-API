@@ -15,7 +15,7 @@ const HeaderChar = () => {
 
     const arrayId = async () => {
         let id=[];
-        await getAllCharactersPerson
+        await getAllCharactersPerson ()
                   .then(res => res.data.results
                   .forEach(item => id.push(item.id)));
         randomId(id);
@@ -35,16 +35,14 @@ const HeaderChar = () => {
         setLoading(true)
     }
 
-    const updateChar = (randomId) => {
-        getCharacter(randomId)
-            .then(res => (
-                setChar (res)
+    const updateChar = async (randomId) => {
+        await getCharacter(randomId)
+                .then(res => (
+                    setChar (res)
             ))
             .catch (onError);
         
-        setLoading (false)
-        
-               
+        setLoading (false)       
     }
 
         useEffect(()=> {

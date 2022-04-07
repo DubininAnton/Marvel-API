@@ -8,8 +8,8 @@ import CharApp from '../charApp/charApp';
 import CharAppDescr from '../charAppDescr/charAppDescr';
 import ErrorBoundaty from '../errorBoundary/errorBoundary';
 
-// import AppBanner from '../appBanner/appBanner';
-// import Comicslist from '../comicsList/comicsList';
+import AppBanner from '../appBanner/appBanner';
+import ComicsList from '../comicsList/comicsList';
 // import ComicsDescr from '../comicsDescr/comicsDescr';
 
 
@@ -42,11 +42,11 @@ class App extends Component {
                     </ErrorBoundaty>
                   </div>
                 </Route>
-                {/* <Route exact path='/comics'>
+                <Route exact path='/comics'>
                     <AppBanner/>
-                    <Comicslist/>
+                    <ComicsList/>
                     {/* <ComicsDescr/> */}
-                {/* </Route> */} 
+                </Route> 
               </Switch>   
           </div>
         </div>

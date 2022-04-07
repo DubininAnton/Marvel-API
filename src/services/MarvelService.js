@@ -20,8 +20,8 @@ const useMarvelService = () => {
         return await getResourse(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`);
     }
 
-    const getAllCharactersPerson = () => {
-        return getResourse(`${_apiBase}characters?limit=100&${_apiKey}`);
+    const getAllCharactersPerson = async () => {
+        return await getResourse(`${_apiBase}characters?limit=100&${_apiKey}`);
     }
 
     const getCharacter = async (id) => {
@@ -45,7 +45,8 @@ const useMarvelService = () => {
     }
    
     const getComicsList = async (offset = _baseOffset) => {
-        return await getResourse(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
+        const res = await getResourse(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
+        return (res.data.results)
     }
 
     const getComicsItem = (id) => {
@@ -60,7 +61,7 @@ const useMarvelService = () => {
             description: comicsId.description,
             page: comicsId.pageCount,
             language: comicsId.language,
-            thumbnail: comicsId.thumbnail.path + "."+comicsId.thumbnail.extension,
+            thumbnail: comicsId.thumbnail.path + "." +comicsId.thumbnail.extension,
             price: comicsId.prices[0].price + "$"
 
         }
