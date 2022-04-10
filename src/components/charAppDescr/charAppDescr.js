@@ -7,7 +7,6 @@ import ErrorText from '../errorText/ErrorText';
 import './charAppDescr.scss';
 
 const CharAppDescr = (props) => {
-
     const [char, setChar] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -18,7 +17,7 @@ const CharAppDescr = (props) => {
 
 
     useEffect(()=> {
-        if(props.onCharId !==null) {
+        if(props.onCharId !== undefined) {
             onUpdateChar()
         }
     }, [props.onCharId])
@@ -80,7 +79,7 @@ const CharAppDescr = (props) => {
 
 
 const View = ({char}) => {
-    const {name, thumbnail, description, stories, wiki, homepage, id} = char;
+    const {name, thumbnail, description, stories, wiki, homepage} = char;
     
         return (
             <>

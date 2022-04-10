@@ -45,7 +45,7 @@ const CharApp =(props)=> {
             return (
                 <div tabIndex={0} 
                     className={idState === item.id ? "charApp__item charApp__item_check" : 'charApp__item'} key={item.id} 
-                    onClick={() => {props.onSetId(item.id); changeStateId(item.id)}}>
+                    onClick={() =>{props.onSetId(item.id); changeStateId(item.id)}}>
                     <img src={item.thumbnail.path + '.' + item.thumbnail.extension} alt={item.name} />
                     <h3 className="charApp__item_title">
                         {item.name}
@@ -60,9 +60,6 @@ const CharApp =(props)=> {
     useEffect(()=> {
         charListItem()
     },[])
-    // componentDidMount() {
-    //     this.charListItem();
-    // }
 
     // Дозагрузка новых персонажей
     const onRequest = (offset) => {

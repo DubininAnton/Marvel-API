@@ -1,7 +1,7 @@
 import { Component } from "react";
 import ErrorText from "../errorText/ErrorText";
 
-class ErrorBoundaty extends Component {
+class ErrorBoundary extends Component {
     state ={ 
         error: false
     }
@@ -22,4 +22,4 @@ class ErrorBoundaty extends Component {
     }
 }
 
-export default ErrorBoundaty;
+export default ErrorBoundary;

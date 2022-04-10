@@ -26,6 +26,7 @@ const ComicsList = () => {
     }
 
     useEffect(()=> {
+        setLoading()
         comicsItem()
         setLoading(true)
     }, [])

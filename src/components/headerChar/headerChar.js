@@ -7,7 +7,7 @@ import './headerChar.scss';
 
 const HeaderChar = () => {
 
-    const [char, setChar] = useState(null);
+    const [char, setChar] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 

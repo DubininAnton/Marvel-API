@@ -49,8 +49,8 @@ const useMarvelService = () => {
         return (res.data.results)
     }
 
-    const getComicsItem = (id) => {
-        const res = getResourse(`${_apiBase}comics/${id}?${_apiKey}`);
+    const getComicsItem = async (id) => {
+        const res = await getResourse(`${_apiBase}comics/${id}?${_apiKey}`);
         return _transformComiscItem (res.data.results[0])
     }
 
@@ -58,9 +58,9 @@ const useMarvelService = () => {
         return {
             id: comicsId.id,
             title: comicsId.title,
-            description: comicsId.description,
+            description: comicsId.description ? comicsId.description : "Описание комикса отсутствует",
             page: comicsId.pageCount,
-            language: comicsId.language,
+            language: "en-us",
             thumbnail: comicsId.thumbnail.path + "." +comicsId.thumbnail.extension,
             price: comicsId.prices[0].price + "$"
 
