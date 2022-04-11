@@ -3,9 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import HeaderLink from '../headerLink/headerLink';
 import '../../style/button.scss';
 import '../charApp/charApp.scss';
-import ErrorText from '../errorText/ErrorText';
 import Page404 from '../Page404/Page404';
-// import { CharMainPage } from '../pages/index';
 import Spinner from '../spinner/spinner';
 
 const ComicsListPage = lazy(() => import('../pages/ComicsListPage'));
