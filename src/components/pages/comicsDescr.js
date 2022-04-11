@@ -1,24 +1,21 @@
 
-// import img from "../../resourses/img/x-menBig.png";
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
+import ErrorText from '../errorText/ErrorText';
 import './comicsDescr.scss';
 
 
 const ComicsDescr =() => {
 
     const  {comicId}  = useParams();
-    const [loading, setLoading] = useState(false);
     const [comic, setComic] = useState([])
-    const {getComicsItem} = useMarvelService();
+    const {getComicsItem, loading, error} = useMarvelService();
 
     const updateComic =  () => {
-        setLoading(true)
         getComicsItem(comicId)
             .then(onSetComic)
-        setLoading(false)
     }
  
 
@@ -33,11 +30,13 @@ const ComicsDescr =() => {
 
     const content = !loading ? <View comic={comic}/> : null;
     const spinner = loading ? <Spinner/> : null;
+    const errorMassege = error ? <ErrorText/> : null;
 
     return (
         <>
             {content}
             {spinner}
+            {errorMassege}
         </>
     )
 

@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
+import ErrorText from '../errorText/ErrorText';
 import './charApp.scss';
 
 
@@ -8,17 +9,15 @@ import './charApp.scss';
 const CharApp =(props)=> {
 
     const [charList, setCharList]  = useState([]);
-    const [loading, setLoading] = useState(false);
     const [newItemLoading, setnewItemLoading]  = useState(false);
     const [offset, setOffset] = useState(0);
     const [charEnded, setCharEnded] = useState(false);
     const [id, setId] = useState(null)
 
 
-   const {getAllCharacters} = useMarvelService();
+   const {getAllCharacters, loading, error} = useMarvelService();
 
     const charListItem = () => {
-        setLoading(true)
             getAllCharacters()
              .then(res => onCharrListLouded(res.data.results))
         }
@@ -32,7 +31,6 @@ const CharApp =(props)=> {
         setnewItemLoading(false)
         setOffset(offset + 9)
         setCharEnded(ended)
-        setLoading(false)
     }
 
    const changeStateId = (id) => {
@@ -77,10 +75,12 @@ const CharApp =(props)=> {
 
     const item = renderItem(charList);
     const spinner = loading ? <Spinner/> : null;
+    const errorMassege = error ? <ErrorText/> : null;
     return (
         <div>
             <div className="charApp__list">
                 {item}
+                {errorMassege}
             </div>
                 {spinner}
             <button className="button button__long button__main"

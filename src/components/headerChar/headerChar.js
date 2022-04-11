@@ -8,10 +8,8 @@ import './headerChar.scss';
 const HeaderChar = () => {
 
     const [char, setChar] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
 
-    const {getCharacter, getAllCharactersPerson}= useMarvelService();
+    const {getCharacter, getAllCharactersPerson, loading, error}= useMarvelService();
 
     const arrayId = async () => {
         let id=[];
@@ -25,24 +23,12 @@ const HeaderChar = () => {
         let randomId = id[Math.floor(Math.random()*id.length)]; 
         updateChar(randomId);
     }
-   
-    const onError = () => {
-        setLoading({loading: false})
-        setError({error:true})
-    }
-    
-    const onCharLoading =() => {
-        setLoading(true)
-    }
 
     const updateChar = async (randomId) => {
         await getCharacter(randomId)
                 .then(res => (
                     setChar (res)
-            ))
-            .catch (onError);
-        
-        setLoading (false)       
+            ))      
     }
 
         useEffect(()=> {
@@ -52,12 +38,11 @@ const HeaderChar = () => {
 
     const clickButton = () => {
         arrayId();
-        onCharLoading()
     }
 
         const spinner = loading ? <Spinner/> : null;
         const errorText = error ? <ErrorText/> : null;
-        const content = !(loading || error) ? <View char={char}/> : null;
+        const content = !(loading || error || !char) ? <View char={char}/> : null;
         return (
             <div className="headerChar">
                 {spinner}

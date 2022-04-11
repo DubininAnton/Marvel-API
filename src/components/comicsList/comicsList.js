@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Link} from "react-router-dom"
 import Spinner from '../spinner/spinner';
+import ErrorText from '../errorText/ErrorText';
 import useMarvelService from "../../services/MarvelService";
 import './comicsList.scss';
 
@@ -8,27 +9,22 @@ import './comicsList.scss';
 const ComicsList = () => {
 
     const [comicsList, setComicsList] =useState([]);
-    const [loading, setLoading] = useState(false);
     const [offset, setOffset] = useState(null);
-    const {getComicsList} = useMarvelService();
+    const {getComicsList, loading, error} = useMarvelService();
 
     const comicsItem = async () => {
-        setLoading(true)
         await getComicsList(offset)
                 .then(res => onComicsList(res))
     }
 
     const onComicsList = (res)=> {
-        setLoading(false)
         setOffset(offset+8)
         setComicsList([...comicsList, ...res])
 
     }
 
     useEffect(()=> {
-        setLoading()
         comicsItem()
-        setLoading(true)
     }, [])
 
     const renderCardComics = (arr) => {
@@ -55,10 +51,12 @@ const ComicsList = () => {
 
     const card = renderCardComics(comicsList)
     const spinner = loading ? <Spinner/> : null;
+    const errorMassege = error ? <ErrorText/> : null;
     return (
         <div className="container">
             <div className="comicsList">
                 {card}
+                {errorMassege}
             </div>
             {spinner}
             <div onClick={onLoadNewComics} className="button button__long button__main">

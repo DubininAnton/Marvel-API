@@ -8,12 +8,8 @@ import './charAppDescr.scss';
 
 const CharAppDescr = (props) => {
     const [char, setChar] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    // const [id, setId] = useState(null);
-    // const [spinner, setSpinner] = useState(false);
 
-    const {getCharacter} = useMarvelService();
+    const {getCharacter, loading, error} = useMarvelService();
 
 
     useEffect(()=> {
@@ -26,40 +22,14 @@ const CharAppDescr = (props) => {
     const onUpdateChar =() => {
         
         const onCharId = props.onCharId;
-        onLoadingCharInfo();
 
         getCharacter(onCharId)
             .then(onLoadCharInfo)
-            .catch(onError)
     }
-
-    const onError = () => {
-        setLoading({loading: false})
-        setError({error:true})
-    }
-
-    const onLoadingCharInfo =() => {
-        setLoading(true)
-    }
-
 
     const onLoadCharInfo = (res) => {
         setChar(res)
-        setLoading(false)
     }
-
-   
-    
-    // const onSetState = () => {
-    //     const onCharId = props.onCharId;
-    //     setId(({id:onCharId}))
-    // }
-
-    
-    // const onSpinner = () => {
-    //     setSpinner({spinner: true})
-    // }
-
 
        const skeleton = char || loading ? null : <Skeleton/>;
        const content = !(loading || !char) ? <View char={char}/> : null;
@@ -79,7 +49,7 @@ const CharAppDescr = (props) => {
 
 
 const View = ({char}) => {
-    const {name, thumbnail, description, stories, wiki, homepage} = char;
+    const {name, thumbnail, description, stories, wiki, homepage } = char;
     
         return (
             <>
@@ -104,9 +74,9 @@ const View = ({char}) => {
                     <span>Comics:</span>
                     <div className='charApp__inner'>
                         {
-                           stories.map((res) => {
+                           stories.map((res, i) => {
                                 return (
-                                    <div className="charApp__descr_link" key={res.id}>
+                                    <div className="charApp__descr_link" key={i}>
                                         {res.name}
                                     </div>
                                 )
