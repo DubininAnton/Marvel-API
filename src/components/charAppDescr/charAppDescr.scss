@@ -15,10 +15,6 @@
                 line-height: 3;
             }
         }
-        img {
-            width: 150px;
-            height: 150px;
-        }
         &_head {
             display: flex;
             margin-bottom: 15px;
@@ -35,6 +31,7 @@
             bottom: -50px;
             width: 467px;
             height: 372px;
+            z-index: 1;
         }
     }
 
@@ -60,3 +57,64 @@
     margin-bottom: 10px;
 
 }
+
+.findChar {
+    margin-top: 30px;
+    margin-left: 15px;
+    width: 425px;
+    min-height: 127px;
+    box-shadow: 6px 7px 15px 0px rgba(5, 6, 6, 0.19);
+    z-index: 100;
+    .container {
+        width: 425px;
+        padding-top: 25px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    p {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+    &__input {
+        width: 250px;
+        height: 38px;
+        box-shadow: 6px 7px 15px 0px rgba(5, 6, 6, 0.19);
+        padding-left: 10px;
+        margin-right: 24px;
+        margin-bottom: 22px;
+    }
+}
+
+.charname {
+    display: flex;
+    justify-content: space-between;
+    .button {
+        margin-bottom: 25px;
+    }
+    p {
+        display: flex;
+        text-align: left;
+        align-items: center;
+    }
+    &__link {
+        width: 101px;
+        height: 38px;
+    }
+}
+
+.charnotfound {
+    color: #9F0013;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 25px;
+}
+
+.error {
+    margin: 0;
+    padding: 0;
+    min-height: 25px;
+    text-align: left;
+}
+
+
