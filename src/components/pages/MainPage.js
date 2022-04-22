@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import HeaderChar from "../headerChar/headerChar";
 import CharApp from "../charApp/charApp";
 import CharAppDescr from "../charAppDescr/charAppDescr";
@@ -13,6 +14,13 @@ const MainPage = () => {
 
     return (
         <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Web site created using create-react-app"
+                    />
+                <title>Marvel information portal</title>
+            </Helmet>
             <HeaderChar/>
             <div className="main">
                 <div className="charApp">

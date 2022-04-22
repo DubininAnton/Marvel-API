@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import {Helmet} from 'react-helmet';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
 import ErrorText from '../errorText/ErrorText';
@@ -49,6 +50,13 @@ const View = ({comic}) => {
         return (
           
             <div className="comicsDescr">
+                <Helmet>
+                    <meta
+                        name="description"
+                        content={`${title} comics book`}
+                        />
+                    <title>{title}</title>
+                </Helmet>
                 <img src={thumbnail} alt={title} />
                 <div className="comicsDescr__block">
                     <h3>{title}</h3>
