@@ -77,13 +77,17 @@ const HeaderChar = () => {
                         <p>{description}</p>
                         <div className="headerCharButton">
                             <div className="headerCharButton__homepage">
-                                <button href ={homepage} className="button button__main">
-                                    <div className="inner">HOMEPAGE</div>
+                                <button  className="button button__main">
+                                    <div className="inner">
+                                        <a href ={homepage} target="_blank" rel="noreferrer">HOMEPAGE</a>
+                                    </div>
                                 </button>
                             </div>
                             <div className="headerCharButton__wiki">
-                                <button href ={wiki} className="button button__secondary">
-                                    <div className="inner">WIKI</div>
+                                <button className="button button__secondary">
+                                    <div className="inner">
+                                        <a href ={wiki} target="_blank" rel="noreferrer">WIKI</a>
+                                    </div>
                                 </button>
                             </div>
                         </div>

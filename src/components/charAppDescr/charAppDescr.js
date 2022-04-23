@@ -161,12 +161,14 @@ const View = ({char}) => {
                                 {name}
                             </h3>
                             <div className="button button__main">
-                                <div className="inner">LOAD MORE</div>
-                               <a href={homepage}> </a>
+                                <div className="inner">
+                                    <a target="_blank"  rel="noreferrer" href={homepage}> LOAD MORE </a>
+                                </div>
                             </div>
                             <div href={wiki} className="button button__secondary">
-                                <div className="inner">WIKI</div>
-                                <a href={wiki}> </a>
+                                <div className="inner">
+                                    <a target="_blank"  rel="noreferrer" href={wiki}> WIKI </a>
+                                </div>
                             </div>
                         </div>
                     </div>

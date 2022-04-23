@@ -1,6 +1,6 @@
 .charApp {
     &__inner {
-        max-height: 455px;
+        max-height: 300px;
         overflow-y: auto;
     }
     &__descr {
@@ -15,11 +15,18 @@
                 line-height: 3;
             }
         }
+        img {
+            width: 200px;
+            z-index: 1;
+        }
         &_head {
             display: flex;
             margin-bottom: 15px;
             .lokiImg {
                 margin-right: 25px;
+            }
+            a {
+                color: white;
             }
         }
         .button.button__main {
